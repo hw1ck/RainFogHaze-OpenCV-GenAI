@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rain, Fog and Haze Removal</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        img {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Haze Detection and Removal</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" required>
+        <br><br>
+        <button type="submit">Upload & Process</button>
+    </form>
+
+    {% if baseline %}
+        <h3>OpenCV Baseline Output</h3>
+        <img src="/{{ baseline }}" width="45%">
+
+        <h3>GenAI Guided OpenCV Output</h3>
+        <img src="/{{ guided }}" width="45%">
+
+        <h3>GenAI Analysis</h3>
+        <pre>{{ genai }}</pre>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red; font-weight:bold;">{{ error }}</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
